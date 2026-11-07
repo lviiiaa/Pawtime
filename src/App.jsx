@@ -34,12 +34,7 @@ const nextBreakMode = (completedCount) => (completedCount % 4 === 0 ? 'longBreak
 // ---------- Data lokal (mode tamu) ----------
 const loadLocalTasks = () => {
   const saved = localStorage.getItem('pawtime_tasks');
-  return saved ? JSON.parse(saved) : [
-      { id: 1, text: 'Menyelesaikan wireframe Pawtime desktop & mobile', time: '12:00', priority: 'Tinggi', pomoEst: 4, pomoDone: 3, completed: false },
-      { id: 2, text: 'Review feedback klien untuk modul autentikasi', time: '15:30', priority: 'Sedang', pomoEst: 2, pomoDone: 1, completed: false },
-      { id: 3, text: 'Dokumentasi token sistem desain dan komponen Tailwind', time: '17:00', priority: 'Rendah', pomoEst: 1, pomoDone: 0, completed: false },
-      { id: 4, text: 'Morning standup dan sinkronisasi backlog sprint', time: '09:30', priority: 'Sedang', pomoEst: 1, pomoDone: 1, completed: true },
-    ];
+  return saved ? JSON.parse(saved) : [];
 };
 
 const loadLocalHistory = () => {
