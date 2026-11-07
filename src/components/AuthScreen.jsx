@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, LoaderCircle, TriangleAlert, CircleCheck } from 'lucide-react';
-import { loginWithGoogle, loginWithEmail, resetPassword, updatePassword, authErrorMessage } from '../auth';
+import { loginWithGoogle, loginWithEmail, registerWithEmail, resetPassword, updatePassword, authErrorMessage } from '../auth';
 
 function Logo({ className = 'h-10 w-10' }) {
   return (
@@ -65,6 +65,7 @@ const field =
   'w-full h-11 pl-10 pr-3 rounded-lg bg-surface-container-low/70 border border-surface-container-high text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-container-lowest transition-all';
 
 export default function AuthScreen({ recovery = false, onRecoveryDone, onBack }) {
+  const [mode, setMode] = useState('login');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -95,7 +96,12 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
         onRecoveryDone?.();
         return;
       }
-      await loginWithEmail(email.trim(), password);
+      if (mode === 'register') {
+        const data = await registerWithEmail(name.trim(), email.trim(), password);
+        if (!data.session) setInfo('Akun berhasil dibuat. Cek email untuk konfirmasi sebelum masuk.');
+      } else {
+        await loginWithEmail(email.trim(), password);
+      }
     });
   };
 
@@ -120,15 +126,23 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
         <div className="flex flex-col items-center text-center gap-2">
           <Logo />
           <h1 className="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
-            {recovery ? 'Atur password baru' : 'Selamat datang kembali'}
+            {recovery ? 'Atur password baru' : mode === 'register' ? 'Buat akun Pawtime' : 'Selamat datang kembali'}
           </h1>
           <p className="font-body-md text-body-md text-on-surface-variant">
-            {recovery ? 'Masukkan password baru untuk akunmu.' : 'Masuk untuk melanjutkan alur fokusmu.'}
+            {recovery ? 'Masukkan password baru untuk akunmu.' : mode === 'register' ? 'Simpan tugas dan riwayat fokusmu di semua perangkat.' : 'Masuk untuk melanjutkan alur fokusmu.'}
           </p>
         </div>
 
         {!recovery && (
         <>
+        <div className="flex items-center gap-1 rounded-full bg-[#FAF6F0] dark:bg-[#201A2E] p-1 border border-[#EBDCC8] dark:border-[#3D374A]">
+          {['login', 'register'].map((item) => (
+            <button key={item} type="button" onClick={() => { setMode(item); setError(''); setInfo(''); }} className={`flex-1 rounded-full py-2 text-xs font-bold transition-colors ${mode === item ? 'bg-[#FDE68A] text-[#2D2838] shadow-sm' : 'text-[#8D7060] dark:text-[#C9BDC9]'}`}>
+              {item === 'login' ? 'Masuk' : 'Daftar'}
+            </button>
+          ))}
+        </div>
+
         <button
           type="button"
           disabled={busy}
@@ -149,7 +163,7 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
         )}
 
         <form onSubmit={handleSubmit} className="space-y-3">
-          {false && !recovery && (
+          {mode === 'register' && !recovery && (
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-outline pointer-events-none" />
               <input
@@ -184,7 +198,7 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={recovery ? 'Password baru (min. 6 karakter)' : 'Password'}
+              placeholder={recovery ? 'Password baru (min. 6 karakter)' : mode === 'register' ? 'Password (min. 6 karakter)' : 'Password'}
               autoComplete={recovery ? 'new-password' : 'current-password'}
               className={`${field} pr-10`}
             />
@@ -198,8 +212,8 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
             </button>
           </div>
 
-          {!recovery && (
-            <div className="text-right -mt-1">
+{mode === 'login' && !recovery && (
+             <div className="text-right -mt-1">
               <button
                 type="button"
                 onClick={handleReset}
@@ -230,8 +244,16 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
             className="w-full h-11 rounded-lg bg-primary-container hover:bg-[#4338ca] text-on-primary font-label-lg text-label-lg shadow-md shadow-primary-container/20 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:pointer-events-none active:scale-[0.99]"
           >
             {busy && <LoaderCircle className="w-4 h-4 animate-spin" />}
-            {recovery ? 'Simpan Password' : 'Masuk'}
+            {recovery ? 'Simpan Password' : mode === 'register' ? 'Buat Akun' : 'Masuk'}
           </button>
+          {!recovery && (
+            <p className="text-center text-xs text-[#8D7060] dark:text-[#C9BDC9]">
+              {mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?'}{' '}
+              <button type="button" onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); setInfo(''); }} className="font-bold text-[#B7791F] hover:underline">
+                {mode === 'login' ? 'Daftar di sini' : 'Masuk di sini'}
+              </button>
+            </p>
+          )}
         </form>
 
         {onBack && !recovery && (

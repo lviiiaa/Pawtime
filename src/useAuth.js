@@ -24,10 +24,7 @@ export function useAuth() {
   useEffect(() => {
     if (!supabase) return undefined;
 
-    supabase.auth.getSession().then(({ data }) => {
-      setUser(toUser(data.session?.user));
-      setLoading(false);
-    });
+    setLoading(false);
 
     const {
       data: { subscription },
