@@ -62,7 +62,7 @@ export function SupabaseSetupNotice({ onBack }) {
 }
 
 const field =
-  'w-full h-11 pl-10 pr-3 rounded-lg bg-surface-container-low/70 border border-surface-container-high text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-container-lowest transition-all';
+  'w-full h-11 pl-10 pr-3 rounded-xl bg-[#FDF8F0] dark:bg-[#252130] border border-[#E8D8C8] dark:border-[#4B4258] text-[#5C4033] dark:text-[#F7F4EF] font-body-md text-body-md placeholder:text-[#A08B7A] dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F6C85F]/50 focus:border-[#F6C85F] transition-all';
 
 export default function AuthScreen({ recovery = false, onRecoveryDone, onBack }) {
   const [mode, setMode] = useState('login');
@@ -118,11 +118,11 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
   };
 
   return (
-    <div className="relative min-h-screen bg-surface flex items-center justify-center p-space-md overflow-hidden">
+    <div className="relative min-h-screen bg-[#FDF6EC] dark:bg-[#1E1B24] flex items-center justify-center p-4 sm:p-6 overflow-hidden transition-colors duration-300">
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-primary-fixed/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-tertiary-fixed/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg sm:p-space-xl shadow-md border border-surface-container-high/40 space-y-space-md">
+      <div className="relative z-10 w-full max-w-md bg-[#FDF8F0] dark:bg-[#2D2838] rounded-3xl p-5 sm:p-7 shadow-md border border-[#E8D8C8] dark:border-[#3D374A] space-y-4 transition-colors duration-300">
         <div className="flex flex-col items-center text-center gap-2">
           <Logo />
           <h1 className="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
@@ -147,7 +147,7 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
           type="button"
           disabled={busy}
           onClick={() => run(loginWithGoogle)}
-          className="w-full h-11 rounded-lg border border-surface-container-high bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-60 disabled:pointer-events-none"
+          className="w-full h-11 rounded-full border border-[#E8D8C8] dark:border-[#4B4258] bg-[#FFFDF9] dark:bg-[#252130] hover:bg-[#FFF4D6] dark:hover:bg-[#383048] text-[#5C4033] dark:text-[#F7F4EF] font-label-lg text-label-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-60 disabled:pointer-events-none"
         >
           <GoogleIcon />
           Lanjutkan dengan Google
@@ -241,7 +241,7 @@ export default function AuthScreen({ recovery = false, onRecoveryDone, onBack })
           <button
             type="submit"
             disabled={busy}
-            className="w-full h-11 rounded-lg bg-primary-container hover:bg-[#4338ca] text-on-primary font-label-lg text-label-lg shadow-md shadow-primary-container/20 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:pointer-events-none active:scale-[0.99]"
+            className="w-full h-11 rounded-full bg-yellow-200 hover:bg-yellow-300 text-yellow-900 font-label-lg text-label-lg shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:pointer-events-none active:scale-[0.99]"
           >
             {busy && <LoaderCircle className="w-4 h-4 animate-spin" />}
             {recovery ? 'Simpan Password' : mode === 'register' ? 'Buat Akun' : 'Masuk'}
