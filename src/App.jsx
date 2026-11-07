@@ -34,18 +34,24 @@ const nextBreakMode = (completedCount) => (completedCount % 4 === 0 ? 'longBreak
 // ---------- Data lokal (mode tamu) ----------
 const loadLocalTasks = () => {
   const saved = localStorage.getItem('pawtime_tasks');
-  return saved ? JSON.parse(saved) : [];
+  if (!saved) return [];
+  try {
+    const tasks = JSON.parse(saved);
+    return Array.isArray(tasks) ? tasks : [];
+  } catch {
+    return [];
+  }
 };
 
 const loadLocalHistory = () => {
   const saved = localStorage.getItem('pawtime_history');
-  return saved ? JSON.parse(saved) : [
-      { id: 1, ts: todayAt(11, 0), time: 'Hari ini, 11:00 - 11:25', text: 'Menyelesaikan wireframe Pawtime desktop', category: 'Desain', type: 'focus', duration: 25 },
-      { id: 2, ts: todayAt(10, 30), time: 'Hari ini, 10:30 - 10:35', text: 'Istirahat sejenak & hidrasi', category: 'Rehat', type: 'shortBreak', duration: 5 },
-      { id: 3, ts: todayAt(10, 5), time: 'Hari ini, 10:05 - 10:30', text: 'Review feedback klien untuk modul autentikasi', category: 'Coding', type: 'focus', duration: 25 },
-      { id: 4, ts: todayAt(9, 35), time: 'Hari ini, 09:35 - 10:00', text: 'Dokumentasi token sistem desain dan komponen', category: 'Desain', type: 'focus', duration: 25 },
-      { id: 5, ts: todayAt(9, 0), time: 'Hari ini, 09:00 - 09:25', text: 'Morning standup dan sinkronisasi backlog sprint', category: 'Admin', type: 'focus', duration: 25 },
-    ];
+  if (!saved) return [];
+  try {
+    const history = JSON.parse(saved);
+    return Array.isArray(history) ? history : [];
+  } catch {
+    return [];
+  }
 };
 
 const loadLocalScratch = () => localStorage.getItem('pawtime_scratchpad') || '';
@@ -126,9 +132,9 @@ function PawtimeApp({ user, onLogin, onLogout }) {
     setCloudReady(false);
 
     if (!userId) {
-      setTasks(loadLocalTasks());
-      setHistoryLogs(loadLocalHistory());
-      setScratchpad(loadLocalScratch());
+      setTasks([]);
+      setHistoryLogs([]);
+      setScratchpad('');
       return undefined;
     }
 
@@ -392,10 +398,15 @@ function PawtimeApp({ user, onLogin, onLogout }) {
         mood={isRunning ? (currentMode === 'focus' ? 'Fokus Penuh' : 'Rehat Santai') : 'Tenang'} 
         user={user} 
         onLogin={onLogin} 
-        onLogout={onLogout} 
+        onLogout={async () => {
+          setTasks([]);
+          setHistoryLogs([]);
+          setScratchpad('');
+          await onLogout?.();
+        }} 
       />
 
-      <main className="w-full flex-1 max-w-[1280px] mx-auto px-4 md:px-8 py-6 space-y-6">
+      <main className="w-full min-w-0 flex-1 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-6 space-y-5 sm:space-y-6">
         {activeTab === 'timer' && (
           <div className="space-y-6">
             <ModeSelector 
@@ -482,6 +493,16 @@ export default function App() {
   const { user, loading, recovery, finishRecovery } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
 
+  const handleLogout = async () => {
+    localStorage.removeItem('pawtime_tasks');
+    localStorage.removeItem('pawtime_history');
+    localStorage.removeItem('pawtime_scratchpad');
+    localStorage.removeItem('pawtime_settings');
+    localStorage.removeItem('pawtime_stats');
+    localStorage.removeItem('pawtime_consistency');
+    await logout();
+  };
+
   // Begitu berhasil masuk, tutup layar login
   useEffect(() => {
     if (user) setShowAuth(false);
@@ -492,7 +513,7 @@ export default function App() {
 
   return (
     <>
-      <PawtimeApp user={user} onLogin={() => setShowAuth(true)} onLogout={logout} />
+      <PawtimeApp user={user} onLogin={() => setShowAuth(true)} onLogout={handleLogout} />
 
       {/* Layar login sebagai lapisan di atas aplikasi, jadi timer yang sedang jalan tidak terhenti */}
       {showAuth && !user && (

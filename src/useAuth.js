@@ -24,14 +24,8 @@ export function useAuth() {
   useEffect(() => {
     if (!supabase) return undefined;
 
-    supabase.auth.getSession().then(async ({ data }) => {
-      let currentSession = data.session;
-      if (!currentSession) {
-        const { data: anonData, error } = await supabase.auth.signInAnonymously();
-        if (error) throw error;
-        currentSession = anonData.session;
-      }
-      setUser(toUser(currentSession?.user));
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(toUser(data.session?.user));
       setLoading(false);
     });
 

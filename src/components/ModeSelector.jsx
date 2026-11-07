@@ -1,8 +1,8 @@
 import React from 'react';
 const MODES = [
   { id: 'focus', label: 'Fokus' },
-  { id: 'shortBreak', label: 'Istirahat Pendek' },
-  { id: 'longBreak', label: 'Istirahat Panjang' },
+  { id: 'shortBreak', label: 'Rehat Pendek' },
+  { id: 'longBreak', label: 'Rehat Panjang' },
 ];
 
 const DAILY_TARGET = 10;
@@ -17,8 +17,9 @@ function getCycleName() {
 
 export default function ModeSelector({ currentMode, setMode, completedSessions = 0, durations = { focus: 25, shortBreak: 5, longBreak: 15 } }) {
   return (
-    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-[#FFFBF5] p-2 rounded-3xl shadow-sm border border-[#F1E8DC]">
-      <div role="tablist" className="flex items-center gap-1 bg-[#FAF6F0] p-1 rounded-full overflow-x-auto self-start">
+    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-space-md bg-[#FFFBF5] p-2.5 rounded-3xl shadow-sm border border-[#F1E8DC]">
+      <div role="tablist" className="flex w-full lg:w-auto max-w-full items-center justify-start gap-1 overflow-x-auto overscroll-x-contain bg-[#FAF6F0] p-1 rounded-2xl sm:rounded-full self-start">
+
         {MODES.map(({ id, label }) => {
           const minutes = durations[id];
           const active = currentMode === id;
@@ -29,7 +30,7 @@ export default function ModeSelector({ currentMode, setMode, completedSessions =
               aria-selected={active}
               type="button"
               onClick={() => setMode(id, minutes)}
-              className={`px-space-md py-2 rounded-full font-label-md text-label-md whitespace-nowrap transition-all flex items-center gap-1.5 ${
+              className={`shrink-0 px-2.5 sm:px-space-md py-2 rounded-full font-label-md text-label-md whitespace-nowrap transition-all flex items-center gap-1.5 ${
                 active
                    ? 'bg-[#FDE7A9] text-[#2D2838] shadow-sm font-bold'
                    : 'text-[#8B7163] hover:text-[#5C4033] hover:bg-[#FFF4D6]'
@@ -43,7 +44,7 @@ export default function ModeSelector({ currentMode, setMode, completedSessions =
         })}
       </div>
 
-      <div className="flex items-center justify-between lg:justify-end gap-2">
+      <div className="flex w-full lg:w-auto flex-wrap items-center justify-center lg:justify-end gap-2">
         <div className="flex items-center bg-[#FDE7A9] px-space-md py-2 rounded-full text-[#2D2838]">
           <span className="font-label-md text-label-md font-semibold">
             Siklus Fokus: <span className="font-normal">Sesi {(completedSessions % 4) + 1} dari 4</span>

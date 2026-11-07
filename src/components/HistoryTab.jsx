@@ -40,7 +40,7 @@ function normalize(log, index) {
   const duration = log.duration ?? (type === 'focus' ? 25 : isBreak ? 5 : null);
   return {
     key: log.id ?? index,
-    ts: log.ts ?? Date.now(),
+    ts: log.ts ?? (log.created_at ? new Date(log.created_at).getTime() : 0),
     time: log.time ?? '-',
     name: name || (isBreak ? 'Waktu istirahat' : 'Sesi fokus'),
     description: log.description ?? (isBreak ? 'Jeda untuk memulihkan energi sebelum kembali fokus.' : 'Sesi produktif tercatat dalam perjalanan fokusmu.'),

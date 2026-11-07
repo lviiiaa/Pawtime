@@ -16,7 +16,7 @@ const chip =
   'px-space-md py-2 rounded-full bg-[#FAF6F0] hover:bg-[#FFF4D6] text-[#765949] font-label-sm text-label-sm transition-all active:scale-95';
 
 const textBtn =
-  'px-5 h-12 bg-[#FAF6F0] hover:bg-[#FFF4D6] text-[#765949] border border-[#DCC9B8] rounded-full transition-all flex items-center justify-center gap-2 active:scale-95 shadow-sm';
+  'w-full sm:w-auto px-3 sm:px-5 h-11 sm:h-12 bg-[#FAF6F0] hover:bg-[#FFF4D6] text-[#765949] border border-[#DCC9B8] rounded-full transition-all flex items-center justify-center gap-2 active:scale-95 shadow-sm';
 
 export default function TimerCard({
   timer,
@@ -101,7 +101,7 @@ export default function TimerCard({
       </div>
 
       {/* Penyesuaian waktu */}
-      <div className="relative z-10 flex items-center gap-space-sm mb-space-lg mt-2">
+      <div className="relative z-10 flex flex-wrap items-center justify-center gap-space-sm mb-space-lg mt-2">
         <button type="button" className={chip} title="Kurangi 5 Menit" onClick={() => adjustTime(-300)}>
           -5 Menit
         </button>
@@ -112,11 +112,11 @@ export default function TimerCard({
       </div>
 
       {/* Kontrol utama */}
-      <div className="relative z-10 flex items-center gap-space-md w-full justify-center">
+      <div className="relative z-10 grid grid-cols-2 sm:flex items-center gap-2 sm:gap-space-md w-full justify-center">
         <button
           type="button"
           onClick={toggleTimer}
-          className="flex-1 max-w-[220px] h-14 bg-[#FCE38A] hover:bg-[#F8D96F] text-[#5C4033] rounded-full font-label-lg text-label-lg shadow-md shadow-primary-container/20 hover:shadow-lg hover:shadow-primary-container/30 transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
+          className="col-span-2 sm:col-span-1 flex-1 w-full sm:max-w-[220px] h-12 sm:h-14 bg-[#FCE38A] hover:bg-[#F8D96F] text-[#5C4033] rounded-full font-label-lg text-label-lg shadow-md shadow-primary-container/20 hover:shadow-lg hover:shadow-primary-container/30 transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
         >
           {isRunning ? (
             <>
