@@ -150,13 +150,13 @@ export default function TaskManager({ tasks, addTask, toggleTask, deleteTask, se
   return (
       <div className="bg-[#FFFBF5] rounded-[32px] p-4 sm:p-6 shadow-sm border border-[#EBDCC8] flex flex-col space-y-space-md">
        <div className="flex flex-col gap-3">
-         <div className="flex items-center gap-2">
-           <h2 className="font-headline-sm text-headline-sm text-[#5C4033] font-semibold">Daftar Tugas Santai</h2>
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
+            <h2 className="min-w-0 font-headline-sm text-headline-sm text-[#5C4033] font-semibold">Daftar Tugas Santai</h2>
            <span className="bg-[#FDE68A] text-[#5C4033] font-label-sm text-label-sm px-2.5 py-1 rounded-full font-bold whitespace-nowrap">
              {doneCount}/{tasks.length} Selesai
            </span>
          </div>
-         <div className="flex items-center gap-1 self-start bg-[#FAF6F0] p-1 rounded-full border border-[#EBDCC8]">
+          <div className="flex flex-wrap items-center gap-1 self-start bg-[#FAF6F0] p-1 rounded-full border border-[#EBDCC8] max-w-full">
            {FILTERS.map(({ id, label: l }) => (
              <button
                key={id}

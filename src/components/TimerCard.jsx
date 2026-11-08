@@ -54,10 +54,10 @@ export default function TimerCard({
 
       <div
         title="Pilih tugas dari Daftar Tugas untuk mengganti target fokus"
-        className="relative z-10 flex items-center gap-2 px-space-md py-1 bg-surface-container-low hover:bg-surface-container rounded-full transition-colors cursor-pointer group mb-space-lg border border-[#EBDCC8]"
+        className="relative z-10 min-w-0 max-w-full flex items-center gap-2 px-space-md py-1 bg-surface-container-low hover:bg-surface-container rounded-full transition-colors cursor-pointer group mb-space-lg border border-[#EBDCC8]"
       >
         <CircleDot className="w-[18px] h-[18px] text-primary" />
-        <span className="font-label-md text-label-md text-on-surface font-medium">
+        <span className="min-w-0 truncate font-label-md text-label-md text-on-surface font-medium">
           {activeTaskLabel ? (
             <>
               Fokus pada: <span className="font-semibold text-primary">{activeTaskLabel}</span>

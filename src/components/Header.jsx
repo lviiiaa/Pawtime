@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Settings, LogOut, LogIn } from 'lucide-react';
+import { Volume2, VolumeX, Settings, LogOut, LogIn, Menu, X } from 'lucide-react';
 import { ChibiDuo } from './Mascot';
 
 const TABS = [
@@ -99,6 +99,12 @@ export default function Header({
   onLogout,
 }) {
   const ambientLabel = AMBIENT_LABEL[ambientSound] ?? AMBIENT_LABEL.rain;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const selectTab = (tab) => {
+    setActiveTab(tab);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-[#FDF6EC]/90 dark:bg-[#181520]/90 backdrop-blur-md border-b border-[#F2E4D2] dark:border-[#2C243B] transition-colors">
@@ -108,14 +114,14 @@ export default function Header({
           type="button"
           onClick={() => setActiveTab('timer')}
           title="Pawtime"
-          className="flex items-center gap-3.5 group cursor-pointer focus:outline-none text-left"
+          className="min-w-0 flex items-center gap-3.5 group cursor-pointer focus:outline-none text-left"
         >
           <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#FFFBF5] dark:bg-[#251E33] border-2 border-[#F3E2CF] dark:border-[#382D4F] p-1.5 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all duration-300">
             <ChibiDuo />
           </div>
-          <div className="flex flex-col">
+          <div className="min-w-0 flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl font-extrabold text-[#43281C] dark:text-[#F7F3EA] tracking-tight">Pawtime</span>
+              <span className="text-2xl font-extrabold text-[#43281C] dark:text-[#F7F3EA] tracking-tight truncate">Pawtime</span>
               <span className="w-2.5 h-2.5 rounded-full bg-[#34D399] animate-pulse" />
             </div>
             <span className="text-xs font-bold text-[#8D7060] dark:text-[#A898B5]">Teman Fokus Santai</span>
@@ -141,7 +147,7 @@ export default function Header({
         </nav>
 
         {/* Kanan: suasana, ambien, tema, pengaturan, profil */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="hidden md:flex items-center gap-2.5 sm:gap-3">
           <div className="hidden xl:flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#E8F8F0] dark:bg-[#1A382E] border border-[#C5ECD6] dark:border-[#225843] text-[#065F46] dark:text-[#7DE0B7] text-xs font-bold">
             <span className="w-2 h-2 rounded-full bg-[#34D399]" />
             <span>Suasana: {mood}</span>
@@ -201,22 +207,38 @@ export default function Header({
         </div>
       </div>
 
-      {/* Navigasi mobile */}
-      <div className="flex md:hidden border-t border-[#F2E4D2] dark:border-[#2C243B] px-4 py-2.5 bg-[#FFFBF5] dark:bg-[#1E1929] justify-around">
-        {TABS.map(({ id, mobile }) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setActiveTab(id)}
-            className={`text-xs flex flex-col items-center gap-0.5 ${
-              activeTab === id
-                ? 'font-extrabold text-[#D97706] dark:text-[#FDE68A]'
-                : 'font-bold text-[#8D7060] dark:text-[#A898B5]'
-            }`}
-          >
-            {mobile}
-          </button>
-        ))}
+      <div className="md:hidden border-t border-[#F2E4D2] dark:border-[#2C243B] bg-[#FFFBF5] dark:bg-[#1E1929] px-4 py-3">
+        <button
+          type="button"
+          aria-label="Buka menu navigasi"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+          className="w-full min-h-12 flex items-center justify-between rounded-2xl px-4 py-3 bg-[#F7EBDC] dark:bg-[#251E33] border border-[#EEDCC7] dark:border-[#382D4F] text-[#43281C] dark:text-[#F7F3EA] font-extrabold"
+        >
+          <span>Menu navigasi</span>
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+        {mobileMenuOpen && (
+          <nav className="mt-2 grid gap-2" aria-label="Navigasi mobile">
+            {TABS.map(({ id, mobile }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => selectTab(id)}
+                className={`min-h-12 rounded-2xl px-4 text-left text-sm transition-colors ${
+                  activeTab === id
+                    ? 'font-extrabold bg-[#FDE68A] text-[#43281C]'
+                    : 'font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]'
+                }`}
+              >
+                {mobile}
+              </button>
+            ))}
+            <button type="button" onClick={() => selectTab('settings')} className={`min-h-12 rounded-2xl px-4 text-left text-sm ${activeTab === 'settings' ? 'font-extrabold bg-[#FDE68A] text-[#43281C]' : 'font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]'}`}>
+              Pengaturan
+            </button>
+          </nav>
+        )}
       </div>
     </header>
   );

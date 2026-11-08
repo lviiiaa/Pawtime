@@ -44,7 +44,7 @@ function Stepper({ label, value, onChange }) {
 function Toggle({ label, description, checked, onChange }) {
   return (
     <div className="flex items-center justify-between gap-4 p-space-md bg-surface-container-low/70 rounded-xl border border-surface-container-high/60">
-      <div>
+      <div className="min-w-0">
         <p className="font-label-md text-label-md text-on-surface font-semibold">{label}</p>
         {description && <p className="text-xs text-on-surface-variant mt-0.5">{description}</p>}
       </div>
