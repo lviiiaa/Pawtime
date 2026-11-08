@@ -108,7 +108,7 @@ export default function Header({
 
   return (
     <header className="sticky top-0 z-40 bg-[#FDF6EC]/90 dark:bg-[#181520]/90 backdrop-blur-md border-b border-[#F2E4D2] dark:border-[#2C243B] transition-colors">
-      <div className="max-w-[1280px] mx-auto px-3 sm:px-4 md:px-8 h-16 md:h-20 flex items-center justify-between gap-2 sm:gap-4">
+      <div className="w-full max-w-[1280px] mx-auto px-4 py-3 md:px-8 md:py-4 flex justify-between items-center gap-4">
         {/* Brand & karakter */}
         <button
           type="button"
@@ -147,7 +147,7 @@ export default function Header({
         </nav>
 
         {/* Kanan: suasana, ambien, tema, pengaturan, profil */}
-        <div className="hidden md:flex items-center gap-2.5 sm:gap-3">
+        <div className="hidden items-center gap-2.5 sm:gap-3">
           <div className="hidden xl:flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#E8F8F0] dark:bg-[#1A382E] border border-[#C5ECD6] dark:border-[#225843] text-[#065F46] dark:text-[#7DE0B7] text-xs font-bold">
             <span className="w-2 h-2 rounded-full bg-[#34D399]" />
             <span>Suasana: {mood}</span>
@@ -205,21 +205,17 @@ export default function Header({
             </button>
           )}
         </div>
-        <div className="md:hidden flex items-center gap-1.5">
-          <button type="button" aria-label="Toggle Suara Ambien" aria-pressed={!ambientMuted} onClick={onToggleAmbient} className={`${pillBtn} w-10 h-10 flex items-center justify-center`}>
-            {ambientMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-          </button>
-          <button type="button" aria-label="Pengaturan" onClick={() => setActiveTab('settings')} className={`${pillBtn} w-10 h-10 flex items-center justify-center`}>
-            <Settings className="w-4 h-4" />
-          </button>
-          <button type="button" aria-label="Buka menu navigasi" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen((open) => !open)} className={`${pillBtn} w-10 h-10 flex items-center justify-center`}>
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
+        <button type="button" aria-label="Buka menu" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen((open) => !open)} className={`${pillBtn} w-11 h-11 shrink-0 flex items-center justify-center`}>
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
 
-      {mobileMenuOpen && <div className="md:hidden absolute top-16 left-3 right-3 z-50 rounded-2xl bg-[#FFFBF5] dark:bg-[#251E33] border border-[#EEDCC7] dark:border-[#382D4F] p-2 shadow-lg">
-        <button type="button" onClick={() => selectTab('settings')} className="w-full min-h-11 rounded-xl px-3 text-left text-sm font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]">Pengaturan</button>
+      {mobileMenuOpen && <div className="absolute top-full left-4 right-4 z-50 rounded-2xl bg-[#FFFBF5] dark:bg-[#251E33] border border-[#EEDCC7] dark:border-[#382D4F] p-3 shadow-lg">
+        <div className="grid gap-2">
+          <button type="button" onClick={onToggleAmbient} className="min-h-11 rounded-xl px-3 flex items-center gap-3 text-left text-sm font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]"><Volume2 className="w-4 h-4" />{ambientLabel}</button>
+          <button type="button" onClick={onToggleTheme} className="min-h-11 rounded-xl px-3 flex items-center gap-3 text-left text-sm font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]"><span>{darkMode ? '☀️' : '🌙'}</span>{darkMode ? 'Mode Santai' : 'Mode Gelap'}</button>
+          <button type="button" onClick={() => selectTab('settings')} className="min-h-11 rounded-xl px-3 flex items-center gap-3 text-left text-sm font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]"><Settings className="w-4 h-4" />Pengaturan</button>
+        </div>
       </div>}
 
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-[#EEDCC7] dark:border-[#382D4F] bg-[#FFFBF5]/95 dark:bg-[#1E1929]/95 backdrop-blur-lg px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(92,64,51,0.08)]" aria-label="Navigasi bawah">
