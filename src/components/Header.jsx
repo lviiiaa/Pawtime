@@ -58,7 +58,7 @@ export default function Header({
 
   return (
     <>
-      <header className="flex w-full items-center justify-between border-b border-amber-100 bg-[#FDF6EC]/95 px-6 py-4 text-stone-800 backdrop-blur-md dark:border-stone-800 dark:bg-stone-950/95">
+      <header className="mx-auto flex w-full max-w-7xl items-center justify-between border-b border-amber-100 bg-[#FDF6EC]/95 px-4 py-4 text-stone-800 backdrop-blur-md sm:px-6 lg:px-8 dark:border-stone-800 dark:bg-stone-950/95">
         <button type="button" onClick={() => selectTab('timer')} aria-label="Pawtime" className="flex min-w-0 items-center gap-2 text-left">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-amber-100 bg-[#FFFBF5] p-1 shadow-sm">
             <ChibiDuo />
@@ -69,21 +69,22 @@ export default function Header({
           </span>
         </button>
 
-        <nav className="hidden items-center rounded-full bg-[#F1E4D1] p-1 md:flex" aria-label="Navigasi utama">
+        <nav className="hidden items-center rounded-full bg-[#F1E4D1] p-1 md:flex dark:bg-stone-800" aria-label="Navigasi utama">
           {TABS.map(({ id, label }) => <button key={id} type="button" onClick={() => setActiveTab(id)} className={`rounded-full px-6 py-2 text-xs font-bold ${activeTab === id ? 'bg-amber-200 text-stone-800' : 'text-stone-600 hover:bg-white dark:text-stone-300 dark:hover:bg-stone-800'}`}>{label}</button>)}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <button type="button" onClick={() => {}} className="flex items-center gap-2 rounded-full bg-[#E5F3E9] px-4 py-2 text-xs font-bold text-stone-700 dark:bg-emerald-950 dark:text-emerald-100">
+          <button type="button" onClick={() => {}} className="flex items-center gap-2 rounded-full bg-yellow-200 px-4 py-2 text-xs font-bold text-yellow-900 dark:bg-yellow-600 dark:text-yellow-50">
             <span className="h-2 w-2 rounded-full bg-emerald-500" /> Suasana: Tenang
           </button>
-          <button type="button" onClick={onToggleAmbient} className="flex items-center gap-2 rounded-full border border-amber-100 bg-[#FFFBF5] px-4 py-2 text-xs font-bold text-stone-700 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200">
+          <button type="button" onClick={onToggleAmbient} className="flex items-center gap-2 rounded-full bg-yellow-200 px-4 py-2 text-xs font-bold text-yellow-900 dark:bg-yellow-600 dark:text-yellow-50">
             {ambientMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />} Hujan Lembut
           </button>
-          <button type="button" onClick={onToggleTheme} className="flex items-center gap-2 rounded-full bg-[#FBE8A6] px-4 py-2 text-xs font-bold text-stone-700 dark:bg-amber-900 dark:text-amber-100">
-            <Moon className="h-4 w-4" /> Mode Gelap
-          </button>
-        </div>
+<button type="button" onClick={onToggleTheme} className="flex items-center gap-2 rounded-full bg-yellow-200 px-4 py-2 text-xs font-bold text-yellow-900 dark:bg-yellow-600 dark:text-yellow-50">
+             <Moon className="h-4 w-4" /> Mode Gelap
+           </button>
+           {user ? <ProfileMenu user={user} onLogout={onLogout} /> : <button type="button" onClick={onLogin} aria-label="Masuk" className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-yellow-300 bg-yellow-200 font-bold text-yellow-900 dark:border-yellow-500 dark:bg-yellow-600 dark:text-yellow-50">{(user?.displayName || user?.email || 'P').charAt(0).toUpperCase()}</button>}
+         </div>
 
         <button type="button" aria-label="Buka menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="flex md:hidden col-start-3 justify-self-end h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-stone-700 bg-stone-800 text-white shadow-sm hover:bg-stone-700">
           {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
