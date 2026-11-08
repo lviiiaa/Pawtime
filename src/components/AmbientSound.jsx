@@ -37,8 +37,8 @@ export default function AmbientSound({ ambientSound = 'rain', setAmbientSound })
               aria-pressed={active}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-all ${
                 active
-                  ? 'bg-[#FCE38A] text-[#5C4033] shadow-xs border border-[#F6C85F] dark:bg-[#6B5522] dark:text-[#FFF7D6] dark:border-[#8C702E]'
-                  : 'bg-[#FAF6F0] text-[#765949] hover:bg-[#FFF4D6] border border-[#EBDCC8] dark:bg-[#201A2E] dark:text-[#A898B5] dark:border-[#382D4F] dark:hover:bg-[#2C243B]'
+                  ? 'bg-[#E8E2EF] text-[#4A3C50] shadow-xs border border-[#D8D0E2] dark:bg-[#201A2E] dark:text-[#F7F3EA] dark:border-[#382D4F]'
+                  : 'bg-[#E8E2EF] text-[#4A3C50] hover:bg-[#D8D0E2] border border-[#D8D0E2] dark:bg-[#201A2E] dark:text-[#A898B5] dark:border-[#382D4F] dark:hover:bg-[#2C243B]'
               }`}
             >
               <Icon className="w-3.5 h-3.5 shrink-0" />
