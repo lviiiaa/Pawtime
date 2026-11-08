@@ -66,7 +66,11 @@ export default function Header({
           <span className="truncate text-lg font-bold text-stone-800 dark:text-stone-100">Pawtime</span>
         </button>
 
-        <button type="button" aria-label="Buka menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-stone-700 bg-stone-800 text-white shadow-sm hover:bg-stone-700">
+        <nav className="hidden md:flex items-center gap-2 rounded-full bg-[#F7EBDC] p-1" aria-label="Navigasi utama">
+          {TABS.map(({ id, label }) => <button key={id} type="button" onClick={() => setActiveTab(id)} className={`rounded-full px-6 py-2 text-xs font-bold ${activeTab === id ? 'bg-amber-200 text-stone-800' : 'text-stone-600 hover:bg-white dark:text-stone-300 dark:hover:bg-stone-800'}`}>{label}</button>)}
+        </nav>
+
+        <button type="button" aria-label="Buka menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="md:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-stone-700 bg-stone-800 text-white shadow-sm hover:bg-stone-700">
           {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
@@ -88,11 +92,6 @@ export default function Header({
         )}
       </header>
 
-      <nav className="hidden w-full justify-center border-b border-amber-100 bg-[#FFFBF5] px-4 py-2 md:flex dark:border-stone-800 dark:bg-stone-900" aria-label="Navigasi utama">
-        <div className="flex items-center gap-2 rounded-full bg-[#F7EBDC] p-1">
-          {TABS.map(({ id, label }) => <button key={id} type="button" onClick={() => setActiveTab(id)} className={`rounded-full px-6 py-2 text-xs font-bold ${activeTab === id ? 'bg-amber-200 text-stone-800' : 'text-stone-600 hover:bg-white dark:text-stone-300 dark:hover:bg-stone-800'}`}>{label}</button>)}
-        </div>
-      </nav>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-amber-100 bg-[#FFFBF5]/95 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 shadow-lg backdrop-blur-md md:hidden dark:border-stone-800 dark:bg-stone-900/95" aria-label="Navigasi bawah">
         {TABS.map(({ id, label, Icon }) => <button key={id} type="button" onClick={() => setActiveTab(id)} className={`flex min-h-14 min-w-20 flex-col items-center justify-center gap-1 rounded-xl text-[11px] font-bold ${activeTab === id ? 'bg-amber-200 text-stone-800' : 'text-stone-500 dark:text-stone-300'}`}><Icon className="h-5 w-5" />{label}</button>)}
