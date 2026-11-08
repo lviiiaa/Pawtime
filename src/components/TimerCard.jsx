@@ -41,7 +41,7 @@ export default function TimerCard({
       : 'Sesi Dijeda';
 
   return (
-    <div className="relative overflow-hidden bg-[#FFFBF5] rounded-3xl p-space-lg md:p-space-xl shadow-md border border-[#F1E8DC] flex flex-col items-center justify-center text-center">
+    <div className="relative overflow-hidden bg-[#FFFBF5] rounded-3xl p-4 sm:p-space-lg md:p-space-xl shadow-sm sm:shadow-md border border-[#F1E8DC] flex flex-col items-center justify-center text-center">
       <div className="absolute -top-28 -left-28 w-96 h-96 bg-[#FDE7A9]/35 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-28 w-96 h-96 bg-[#F6C8A8]/25 rounded-full blur-3xl pointer-events-none" />
 

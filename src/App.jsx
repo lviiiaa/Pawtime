@@ -406,7 +406,7 @@ function PawtimeApp({ user, onLogin, onLogout }) {
         }} 
       />
 
-      <main className="w-full min-w-0 flex-1 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-6 space-y-5 sm:space-y-6">
+      <main className="w-full min-w-0 flex-1 max-w-[1280px] mx-auto px-3 sm:px-6 md:px-8 pt-4 pb-24 sm:py-6 space-y-4 sm:space-y-6">
         {activeTab === 'timer' && (
           <div className="space-y-6">
             <ModeSelector 

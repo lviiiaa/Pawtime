@@ -8,7 +8,7 @@ const CATEGORY_COLORS = ['#8B7CDE', '#F3B562', '#8ED9B0', '#F2A6A6'];
 
 function KpiCard({ label, value, detail, Icon, iconClass }) {
   return (
-    <div className="min-h-[156px] rounded-[32px] border border-[#EBDCC8] bg-[#FFFBF5] p-5 shadow-sm flex flex-col justify-between">
+    <div className="min-h-[136px] rounded-3xl border border-[#EBDCC8] bg-[#FFFBF5] p-4 sm:p-5 shadow-sm flex flex-col justify-between">
       <div className="flex items-start justify-between gap-3">
         <p className="max-w-[150px] text-xs font-bold uppercase tracking-wide text-[#8D7060]">{label}</p>
         <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${iconClass}`}><Icon className="h-5 w-5" /></div>
@@ -58,13 +58,13 @@ export default function StatsTab() {
   const donutStyle = categoryData.reduce((result, [, value], index) => `${result}${index ? ', ' : ''}${CATEGORY_COLORS[index]} ${categoryData.slice(0, index).reduce((sum, [, previous]) => sum + previous, 0)}%, ${CATEGORY_COLORS[index]} ${categoryData.slice(0, index + 1).reduce((sum, [, current]) => sum + current, 0)}%`, '');
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[32px] border border-[#EBDCC8] bg-[#FFFBF5] p-3 shadow-sm">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-[#EBDCC8] bg-[#FFFBF5] p-2.5 sm:p-3 shadow-sm">
         <div className="flex flex-wrap items-center gap-1 rounded-full bg-[#FAF6F0] p-1">{RANGES.map((item) => <button key={item} type="button" onClick={() => setRange(item)} className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${range === item ? 'bg-[#E5DEFF] text-[#6356A8] shadow-sm' : 'text-[#8D7060] hover:bg-white'}`}>{item}</button>)}</div>
         <button type="button" onClick={() => alert('Laporan analitik telah disiapkan untuk diunduh.')} className="flex items-center gap-2 rounded-full bg-[#FCE38A] px-4 py-2 text-xs font-bold text-[#5C4033]"><Download className="h-4 w-4" />Ekspor</button>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <KpiCard label="Total Waktu Fokus" value={`${totalHours.toFixed(1).replace('.', ',')} jam`} detail="12% vs pekan lalu" Icon={Timer} iconClass="bg-[#E5DEFF] text-[#6356A8]" />
         <KpiCard label="Rata-Rata Sesi" value={`${averageSessions.toFixed(1).replace('.', ',')} sesi/hr`} detail="Ritme fokus stabil" Icon={Clock3} iconClass="bg-[#DDF4E8] text-[#39765A]" />
         <KpiCard label="Tugas Tuntas" value={`${completedTasks} tugas`} detail={`${completionRate}% tingkat penyelesaian`} Icon={CheckCircle2} iconClass="bg-[#FDE9A9] text-[#8B6A25]" />

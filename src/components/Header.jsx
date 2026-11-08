@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Settings, LogOut, LogIn, Menu, X } from 'lucide-react';
+import { Volume2, VolumeX, Settings, LogOut, LogIn, Menu, X, Timer, BarChart3, History } from 'lucide-react';
 import { ChibiDuo } from './Mascot';
 
 const TABS = [
-  { id: 'timer', label: 'Timer & Tugas', mobile: 'Timer' },
-  { id: 'stats', label: 'Statistik', mobile: 'Statistik' },
-  { id: 'history', label: 'Riwayat', mobile: 'Riwayat' },
+  { id: 'timer', label: 'Timer & Tugas', mobile: 'Timer', Icon: Timer },
+  { id: 'stats', label: 'Statistik', mobile: 'Statistik', Icon: BarChart3 },
+  { id: 'history', label: 'Riwayat', mobile: 'Riwayat', Icon: History },
 ];
 
 const AMBIENT_LABEL = {
@@ -108,23 +108,23 @@ export default function Header({
 
   return (
     <header className="sticky top-0 z-40 bg-[#FDF6EC]/90 dark:bg-[#181520]/90 backdrop-blur-md border-b border-[#F2E4D2] dark:border-[#2C243B] transition-colors">
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between gap-4">
+      <div className="max-w-[1280px] mx-auto px-3 sm:px-4 md:px-8 h-16 md:h-20 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand & karakter */}
         <button
           type="button"
           onClick={() => setActiveTab('timer')}
           title="Pawtime"
-          className="min-w-0 flex items-center gap-3.5 group cursor-pointer focus:outline-none text-left"
+          className="min-w-0 flex items-center gap-2 sm:gap-3.5 group cursor-pointer focus:outline-none text-left"
         >
-          <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#FFFBF5] dark:bg-[#251E33] border-2 border-[#F3E2CF] dark:border-[#382D4F] p-1.5 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all duration-300">
+                     <div className="w-11 h-11 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-[#FFFBF5] dark:bg-[#251E33] border-2 border-[#F3E2CF] dark:border-[#382D4F] p-1.5 flex items-center justify-center shadow-sm group-hover:scale-105 transition-all duration-300">
             <ChibiDuo />
           </div>
           <div className="min-w-0 flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-2xl font-extrabold text-[#43281C] dark:text-[#F7F3EA] tracking-tight truncate">Pawtime</span>
+              <span className="text-xl sm:text-2xl font-extrabold text-[#43281C] dark:text-[#F7F3EA] tracking-tight truncate">Pawtime</span>
               <span className="w-2.5 h-2.5 rounded-full bg-[#34D399] animate-pulse" />
             </div>
-            <span className="text-xs font-bold text-[#8D7060] dark:text-[#A898B5]">Teman Fokus Santai</span>
+            <span className="hidden sm:block text-xs font-bold text-[#8D7060] dark:text-[#A898B5]">Teman Fokus Santai</span>
           </div>
         </button>
 
@@ -205,41 +205,33 @@ export default function Header({
             </button>
           )}
         </div>
+        <div className="md:hidden flex items-center gap-1.5">
+          <button type="button" aria-label="Toggle Suara Ambien" aria-pressed={!ambientMuted} onClick={onToggleAmbient} className={`${pillBtn} w-10 h-10 flex items-center justify-center`}>
+            {ambientMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+          </button>
+          <button type="button" aria-label="Pengaturan" onClick={() => setActiveTab('settings')} className={`${pillBtn} w-10 h-10 flex items-center justify-center`}>
+            <Settings className="w-4 h-4" />
+          </button>
+          <button type="button" aria-label="Buka menu navigasi" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen((open) => !open)} className={`${pillBtn} w-10 h-10 flex items-center justify-center`}>
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
-      <div className="md:hidden border-t border-[#F2E4D2] dark:border-[#2C243B] bg-[#FFFBF5] dark:bg-[#1E1929] px-4 py-3">
-        <button
-          type="button"
-          aria-label="Buka menu navigasi"
-          aria-expanded={mobileMenuOpen}
-          onClick={() => setMobileMenuOpen((open) => !open)}
-          className="w-full min-h-12 flex items-center justify-between rounded-2xl px-4 py-3 bg-[#F7EBDC] dark:bg-[#251E33] border border-[#EEDCC7] dark:border-[#382D4F] text-[#43281C] dark:text-[#F7F3EA] font-extrabold"
-        >
-          <span>Menu navigasi</span>
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-        {mobileMenuOpen && (
-          <nav className="mt-2 grid gap-2" aria-label="Navigasi mobile">
-            {TABS.map(({ id, mobile }) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => selectTab(id)}
-                className={`min-h-12 rounded-2xl px-4 text-left text-sm transition-colors ${
-                  activeTab === id
-                    ? 'font-extrabold bg-[#FDE68A] text-[#43281C]'
-                    : 'font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]'
-                }`}
-              >
-                {mobile}
-              </button>
-            ))}
-            <button type="button" onClick={() => selectTab('settings')} className={`min-h-12 rounded-2xl px-4 text-left text-sm ${activeTab === 'settings' ? 'font-extrabold bg-[#FDE68A] text-[#43281C]' : 'font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]'}`}>
-              Pengaturan
+      {mobileMenuOpen && <div className="md:hidden absolute top-16 left-3 right-3 z-50 rounded-2xl bg-[#FFFBF5] dark:bg-[#251E33] border border-[#EEDCC7] dark:border-[#382D4F] p-2 shadow-lg">
+        <button type="button" onClick={() => selectTab('settings')} className="w-full min-h-11 rounded-xl px-3 text-left text-sm font-bold text-[#8D7060] dark:text-[#A898B5] hover:bg-[#F7EBDC] dark:hover:bg-[#2F2740]">Pengaturan</button>
+      </div>}
+
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-[#EEDCC7] dark:border-[#382D4F] bg-[#FFFBF5]/95 dark:bg-[#1E1929]/95 backdrop-blur-lg px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(92,64,51,0.08)]" aria-label="Navigasi bawah">
+        <div className="mx-auto flex max-w-md items-center justify-around gap-1">
+          {TABS.map(({ id, mobile, Icon }) => (
+            <button key={id} type="button" onClick={() => selectTab(id)} className={`min-w-20 min-h-14 flex flex-col items-center justify-center gap-1 rounded-2xl text-[11px] transition-colors ${activeTab === id ? 'bg-[#FDE68A] font-extrabold text-[#43281C]' : 'font-bold text-[#8D7060] dark:text-[#A898B5]'}`}>
+              <Icon className="h-5 w-5" />
+              {mobile}
             </button>
-          </nav>
-        )}
-      </div>
+          ))}
+        </div>
+      </nav>
     </header>
   );
 }
