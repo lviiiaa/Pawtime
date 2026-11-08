@@ -60,7 +60,7 @@ export default function Header({
     <>
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between border-b border-amber-100 bg-[#FDF6EC]/95 px-4 py-4 text-stone-800 backdrop-blur-md sm:px-6 lg:px-8 dark:border-stone-800 dark:bg-stone-950/95">
         <button type="button" onClick={() => selectTab('timer')} aria-label="Pawtime" className="flex min-w-0 items-center gap-2 text-left">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-amber-100 bg-[#FFFBF5] p-1 shadow-sm">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-amber-100 bg-[#FFFBF5] p-1 shadow-sm dark:border-transparent dark:bg-transparent dark:shadow-none">
             <ChibiDuo />
           </span>
           <span className="min-w-0 flex flex-col">
@@ -86,7 +86,7 @@ export default function Header({
            {user ? <ProfileMenu user={user} onLogout={onLogout} /> : <button type="button" onClick={onLogin} aria-label="Masuk" className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-yellow-300 bg-yellow-200 font-bold text-yellow-900 dark:border-yellow-500 dark:bg-yellow-600 dark:text-yellow-50">{(user?.displayName || user?.email || 'P').charAt(0).toUpperCase()}</button>}
          </div>
 
-        <button type="button" aria-label="Buka menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="flex md:hidden col-start-3 justify-self-end h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-stone-700 bg-stone-800 text-white shadow-sm hover:bg-stone-700">
+        <button type="button" aria-label="Buka menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="flex md:hidden col-start-3 justify-self-end h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-transparent text-amber-900 dark:text-amber-200 hover:bg-amber-100/50 dark:hover:bg-stone-800">
           {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
