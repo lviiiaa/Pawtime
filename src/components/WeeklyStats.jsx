@@ -72,7 +72,7 @@ export default function WeeklyStats({ completedSessions = 0, setActiveTab }) {
           <h2 className="text-xl font-bold tracking-tight text-[#43281C] dark:text-[#F7F3EA]">Ringkasan Produktivitas Pekan Ini</h2>
           <p className="mt-1 text-sm text-[#8D7060] dark:text-[#A898B5]">Lihat perkembangan fokusmu sepanjang minggu ini.</p>
         </div>
-        <button type="button" onClick={() => setActiveTab?.('stats')} className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-[#E8E2EF] px-4 py-2 text-sm font-bold text-[#4A3C50] transition hover:bg-[#D8D0E2] dark:bg-[#201A2E] dark:text-[#F7F3EA] dark:hover:bg-[#2C243B]">
+        <button type="button" onClick={() => setActiveTab?.('stats')} className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-[#F1E4D1] px-4 py-2 text-sm font-bold text-[#4A3C50] transition hover:bg-[#E8D5B8] dark:bg-stone-800 dark:text-[#F7F3EA] dark:hover:bg-stone-700">
           Buka Analisis Lengkap <ArrowRight className="h-4 w-4" />
         </button>
       </div>

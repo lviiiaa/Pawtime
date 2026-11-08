@@ -24,7 +24,7 @@ function ProfileMenu({ user, onLogout }) {
 
   return (
     <div ref={ref} className="relative">
-      <button type="button" aria-label="Menu profil" onClick={() => setOpen((value) => !value)} className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D8D0E2] bg-[#E8E2EF] font-bold text-[#4A3C50] dark:border-[#382D4F] dark:bg-[#201A2E] dark:text-[#F7F3EA]">
+      <button type="button" aria-label="Menu profil" onClick={() => setOpen((value) => !value)} className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D8D0E2] bg-[#F1E4D1] font-bold text-[#4A3C50] dark:border-[#382D4F] dark:bg-stone-800 dark:text-[#F7F3EA]">
         {name.charAt(0).toUpperCase()}
       </button>
       {open && (
@@ -58,7 +58,7 @@ export default function Header({
 
   return (
     <>
-      <header className="mx-auto flex w-full max-w-7xl items-center justify-between border-b border-amber-100 bg-transparent px-4 py-4 text-stone-800 backdrop-blur-md sm:px-6 lg:px-8 dark:border-stone-800">
+      <header className="mx-auto flex w-full max-w-7xl items-center justify-between bg-transparent px-4 py-4 text-stone-800 sm:px-6 lg:px-8">
         <button type="button" onClick={() => selectTab('timer')} aria-label="Pawtime" className="flex min-w-0 items-center gap-2 text-left">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-amber-100 bg-[#FFFBF5] p-1 shadow-sm dark:border-transparent dark:bg-transparent dark:shadow-none">
             <ChibiDuo />
@@ -74,16 +74,16 @@ export default function Header({
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <button type="button" onClick={() => {}} className="flex items-center gap-2 rounded-full bg-[#E8E2EF] px-4 py-2 text-xs font-bold text-[#4A3C50] dark:bg-[#201A2E] dark:text-[#F7F3EA]">
+          <button type="button" onClick={() => {}} className="flex items-center gap-2 rounded-full bg-[#F1E4D1] px-4 py-2 text-xs font-bold text-[#4A3C50] dark:bg-stone-800 dark:text-[#F7F3EA]">
             <span className="h-2 w-2 rounded-full bg-emerald-500" /> Suasana: Tenang
           </button>
-          <button type="button" onClick={onToggleAmbient} className="flex items-center gap-2 rounded-full bg-[#E8E2EF] px-4 py-2 text-xs font-bold text-[#4A3C50] dark:bg-[#201A2E] dark:text-[#F7F3EA]">
+          <button type="button" onClick={onToggleAmbient} className="flex items-center gap-2 rounded-full bg-[#F1E4D1] px-4 py-2 text-xs font-bold text-[#4A3C50] dark:bg-stone-800 dark:text-[#F7F3EA]">
             {ambientMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />} Hujan Lembut
           </button>
-<button type="button" onClick={onToggleTheme} className="flex items-center gap-2 rounded-full bg-[#E8E2EF] px-4 py-2 text-xs font-bold text-[#4A3C50] dark:bg-[#201A2E] dark:text-[#F7F3EA]">
+<button type="button" onClick={onToggleTheme} className="flex items-center gap-2 rounded-full bg-[#F1E4D1] px-4 py-2 text-xs font-bold text-[#4A3C50] dark:bg-stone-800 dark:text-[#F7F3EA]">
              <Moon className="h-4 w-4" /> Mode Gelap
            </button>
-           {user ? <ProfileMenu user={user} onLogout={onLogout} /> : <button type="button" onClick={onLogin} aria-label="Masuk" className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D8D0E2] bg-[#E8E2EF] font-bold text-[#4A3C50] dark:border-[#382D4F] dark:bg-[#201A2E] dark:text-[#F7F3EA]">{(user?.displayName || user?.email || 'P').charAt(0).toUpperCase()}</button>}
+           {user ? <ProfileMenu user={user} onLogout={onLogout} /> : <button type="button" onClick={onLogin} aria-label="Masuk" className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D8D0E2] bg-[#F1E4D1] font-bold text-[#4A3C50] dark:border-[#382D4F] dark:bg-stone-800 dark:text-[#F7F3EA]">{(user?.displayName || user?.email || 'P').charAt(0).toUpperCase()}</button>}
          </div>
 
         <button type="button" aria-label="Buka menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="flex md:hidden col-start-3 justify-self-end h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-transparent text-amber-900 dark:text-amber-200 hover:bg-amber-100/50 dark:hover:bg-stone-800">
